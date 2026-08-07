@@ -7,7 +7,12 @@ import org.testng.annotations.DataProvider;
 @CucumberOptions(
     features = "src/test/resources/features",
     glue = {"hooks", "stepDefinitions"},
-    plugins = {"pretty", "html:target/cucumber.html", "json:target/cucumber.json"},
+    plugins = {
+    "pretty",
+    "html:target/cucumber.html",
+    "json:target/cucumber.json",
+    "hooks.ExtentCucumberPlugin"
+}
     monochrome = true
 )
 public class TestRunner extends AbstractTestNGCucumberTests {

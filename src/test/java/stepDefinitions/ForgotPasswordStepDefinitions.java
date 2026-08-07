@@ -46,4 +46,10 @@ public class ForgotPasswordStepDefinitions {
         init();
         loginPage.enterForgotPasswordEmail(email);
     }
+
+    @When("the user clicks on the \"Send Reset Link\" button")
+    public void click_send_reset_link() {
+        init();
+        loginPage.clickSendResetLink();
+    }
 }

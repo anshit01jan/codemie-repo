@@ -40,4 +40,10 @@ public class ForgotPasswordStepDefinitions {
         init();
         Assertions.assertThat(loginPage.getForgotPasswordTitle()).isEqualTo(title);
     }
+
+    @When("the user enters email {string}")
+    public void enters_email(String email) {
+        init();
+        loginPage.enterForgotPasswordEmail(email);
+    }
 }

@@ -1,19 +1,17 @@
 package framework.base;
 
 import framework.utils.Logger;
-import java.time.Duration;
-
-import org.openqa.selenium.By{;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.SeleniumWebDriverWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BasePage {
     protected final WebDriver driver;
-    protected final SeleniumWebDriverWait wait;
+    protected final WebDriverWait wait;
 
-    protected BasePage(WebDriver driver, SeleniumWebDriverWait wait) {
+    protected BasePage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
     }
@@ -26,13 +24,13 @@ public abstract class BasePage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
+    protected WebElement waitForElementToBeClickable(By by) {
+        return wait.until(ExpectedConditions.elementToBeClickable(by));
+    }
+
     protected void clickOnElement(By by) {
         Logger.debug("Click element: " + by);
         waitForElementToBeClickable(by).click();
-    }
-
-    protected WebElement waitForElementToBeClickable(By by) {
-        return wait.until(ExpectedConditions.elementToBeClickable(by));
     }
 
     protected void enterTextInInputBox(By by, String text) {
@@ -48,7 +46,6 @@ public abstract class BasePage {
         return waitForElementToBeVisible(by).getText();
     }
 
-
     protected boolean isVisible(By by) {
         try {
             return driver.findElement(by).isDisplayed();
@@ -59,7 +56,7 @@ public abstract class BasePage {
 
     protected void sleepSeconds(int seconds) {
         try {
-            Thread.sleep(Duration.ofSeconds(seconds).toMillis());
+            Thread.sleep(seconds * 1000L);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

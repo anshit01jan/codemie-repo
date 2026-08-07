@@ -64,4 +64,17 @@ public class ForgotPasswordStepDefinitions {
         init();
         Assertions.assertThat(loginPage.isForgotPasswordEmailValidationErrorVisible()).isTrue();
     }
+
+
+    @When("the user closes the Forgot Password modal")
+    public void close_fp_modal() {
+        init();
+        loginPage.closeForgotPasswordModal();
+    }
+
+    @When("the user opens the Forgot Password modal again")
+    public void open_fp_modal_again() {
+        init();
+        loginPage.clickForgotPassword();
+    }
 }

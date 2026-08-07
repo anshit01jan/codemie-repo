@@ -58,4 +58,10 @@ public class ForgotPasswordStepDefinitions {
         init();
         Assertions.assertThat(loginPage.getForgotPasswordAlertText()).contains(msg);
     }
+
+    @Then("the user should see a validation error for the Email field")
+    public void see_email_validation_error() {
+        init();
+        Assertions.assertThat(loginPage.isForgotPasswordEmailValidationErrorVisible()).isTrue();
+    }
 }

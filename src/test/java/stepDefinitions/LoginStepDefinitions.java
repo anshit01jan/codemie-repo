@@ -50,9 +50,15 @@ public class LoginStepDefinitions {
     }
 
     @When("the user clicks on the Login button")
-    public void the_user_clicks_on the_login_button(() {
+    public void the_user_clicks_on_the_login_button() {
         loginPage.login(username, password);
     }
+
+    @Then("the user should be redirected to the Dashboard page {string}")
+    public void the_user_should_be_redirected_to_the_dashboard_page(String path) {
+        Assertions.assertThat(dashboardPage.getPath()).isEqualTo(path);
+    }
+
 
     @Then("the user should see an error message {string}")
     public void user_sees_error(String msg) {

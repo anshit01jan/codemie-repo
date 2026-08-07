@@ -114,7 +114,7 @@ public class LoginStepDefinitions {
 
     @Then("the user should not be redirected to the Dashboard page")
     public void the_user_should_not_be_redirected_to_the_dashboard_page() {
-        Assertions.assertThat(URI.create(driver.getCurrentUrl()).getPath()).isNOtEqualTo("/dashboard");
+        Assertions.assertThat(URI.create(driver.getCurrentUrl()).getPath()).isNotEqualTo("/dashboard");
     }
 
     @Then("the user should see an error message {string}")

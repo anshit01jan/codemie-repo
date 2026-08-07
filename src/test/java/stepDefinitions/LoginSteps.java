@@ -10,8 +10,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.assertj.core.api.Assertions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.SeleniumWebDriverWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URI;
 import java.time.Duration;
@@ -19,7 +20,7 @@ import java.time.Duration;
 public class LoginSteps {
 
     private WebDriver driver;
-    private SeleniumWebDriverWait wait;
+    private WebDriverWait wait;
     private LoginPage loginPage;
     private DashboardPage dashboardPage;
 
@@ -27,10 +28,30 @@ public class LoginSteps {
     private String password;
 
     private void initPages() {
+        if (DriverManager.getDriver() == null) {
+            throw new IllegalStateException("WebDriver is null. Check hooks/driver initialization.");
+        }
         driver = DriverManager.getDriver();
-        wait = new SeleniumWebDriverWait(driver, Duration.ofSeconds(Config.getTimeoutSeconds())));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(Config.getTimeoutSeconds())));
         loginPage = new LoginPage(driver, wait);
         dashboardPage = new DashboardPage(driver, wait);
     }
 
-    OG
+    private String currentPath() {
+        return URI.create(driver.getCurrentUrl()).getPath();
+    }
+
+    // --- Login flow ---
+
+    @Given("the user is on the Login page")
+    public void user_on_login_page() {
+        initPages();
+        loginPage.open();
+    }
+
+    @Given("the user navigates to the Login page")
+    public void user_navigates_to_login() {
+        user_on_login_page();
+    }
+
+    @End

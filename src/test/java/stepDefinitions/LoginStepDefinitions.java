@@ -40,10 +40,21 @@ public class LoginStepDefinitions {
         loginPage.open();
     }
 
+    @When("the user clicks on the \"Forgot Password?\" link")
+    public void the_user_clicks_forgot_link() {
+        loginPage.clickForgotPassword();
+    }
+
+    @Then("the Forgot Password modal should be displayed")
+    public void the_fp_modal_should_be_displayed() {
+        Assertions.assertThat(loginPage.isForgotPasswordModalVisible()).isTrue();
+    }
+
     @And("the user has a valid username {string}")
     public void the_user_has_a_valid_username(String user) {
         this.username = user;
     }
+
 
     @And("the user has an invalid username {string}")
     public void the_user_has_an_invalid_username(String user) {

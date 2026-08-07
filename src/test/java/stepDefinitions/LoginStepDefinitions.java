@@ -20,12 +20,15 @@ public class LoginStepDefinitions {
     private LoginPage loginPage;
     private DashboardPage dashboardPage;
 
+    private String username;
+    private String password;
+
     private void initPages() {
         driver = DriverManager.getDriver();
         if (driver == null) {
             throw new IllegalStateException("WebDriver is null. Check hooks/driver init.");
         }
-        wait = new WebDriverWait(driver, Duration.ofSeconds(Config.getTimeoutSeconds())));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(Config.getTimeoutSeconds()));
         loginPage = new LoginPage(driver, wait);
         dashboardPage = new DashboardPage(driver, wait);
     }

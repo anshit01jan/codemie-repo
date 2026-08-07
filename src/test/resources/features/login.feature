@@ -23,7 +23,7 @@ Feature: Login
     Given the user is on the Login page
     When the user attempts to login 3 times with an invalid password "WrongPass1"
     Then the user should see an error message containing "Locked"
-    And the user should not be redirected to the Dashboard page
+    And the user should not reach the Dashboard page
 
   @regression
   Scenario: Account unlocks after wait and login succeeds (TC-LOG-004)

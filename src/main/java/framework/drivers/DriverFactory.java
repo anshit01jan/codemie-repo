@@ -4,8 +4,8 @@ import framework.utils.Config;
 import framework.utils.Logger;
 import io.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -14,7 +14,10 @@ public final class DriverFactory {
     private DriverFactory() {}
 
     public static WebDriver initDriver(String browserParam) {
-        String browser = (browserParam == null || browserParam.isBlank()) ? Config.get("browser") : browserParam;
+        String browser = (browserParam == null || browserParam.isBlank())
+                ? Config.get("browser")
+                : browserParam;
+
         if (browser == null || browser.isBlank()) browser = "chrome";
         browser = browser.toLowerCase();
 
@@ -24,14 +27,14 @@ public final class DriverFactory {
                 WebDriverManager.firefoxdriver().setup();
                 FirefoxOptions ffox = new FirefoxOptions();
                 if (Config.isHeadless()) ffox.addArgument("--headless");
-                driver = new FirefoxDriver(&ffox");
+                driver = new FirefoxDriver(ffox);
             }
             case "edge" -> {
                 WebDriverManager.edgedriver().setup();
                 driver = new EdgeDriver();
             }
             case "chrome" -> {
-                WebDriverManager.chromedrvier().setup();
+                WebDriverManager.chromedriver().setup();
                 ChromeOptions options = new ChromeOptions();
                 if (Config.isHeadless()) options.addArgument("--headless=new");
                 options.addArgument("--remote-allow-origins=*");

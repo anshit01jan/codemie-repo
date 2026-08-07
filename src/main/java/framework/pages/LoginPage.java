@@ -6,7 +6,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.SeleniumWebDriverWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage extends BasePage {
 
@@ -26,7 +26,7 @@ public class LoginPage extends BasePage {
     private final By fpCloseBtn = By.cssSelector("#forgotPasswordModal .btn-close");
     private final By fpEmailInvalidFeedback = By.cssSelector("#forgotPasswordModal .invalid-feedback");
 
-    public LoginPage(WebDriver driver, SeleniumWebDriverWait wait) {
+    public LoginPage(WebDriver driver, WebDriverWait wait) {
         super(driver, wait);
     }
 

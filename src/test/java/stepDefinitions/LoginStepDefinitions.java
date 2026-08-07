@@ -44,6 +44,11 @@ public class LoginStepDefinitions {
         this.username = user;
     }
 
+    @And("the user has a valid password {string}")
+    public void the_user_has_a_valid_password(String pass) {
+        this.password = pass;
+    }
+
     @Then("the user should see an error message {string}")
     public void user_sees_error(String msg) {
         Assertions.assertThat(loginPage.getAlertText()).contains(msg);

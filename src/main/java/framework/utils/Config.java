@@ -1,6 +1,6 @@
 package framework.utils;
 
-[import java.io.InputStream;
+import java.io.InputStream;
 import java.util.Properties;
 
 public final class Config {
@@ -22,7 +22,8 @@ public final class Config {
         }
     }
 
-    private static String get(String key) {
+    /** Generic getter used by framework (DriverFactory, etc.). */
+    public static String get(String key) {
         load();
         return props.getProperty(key);
     }
@@ -51,6 +52,7 @@ public final class Config {
         return v != null && v.equalsIgnoreCase("true");
     }
 
+    /** Latest-run-only: keep this pointing to a stable file in target/ and overwrite on each run. */
     public static String getExtentReportPath() {
         String p = get("extentReportPath");
         return (p == null || p.isBlank()) ? "target/extent-report.html" : p;

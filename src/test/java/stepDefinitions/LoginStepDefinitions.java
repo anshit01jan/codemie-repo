@@ -46,4 +46,45 @@ public class LoginStepDefinitions {
         initPages();
         loginPage.open();
     }
+
+    @And("the user navigates to the Login page")
+    public void user_navigates_to_login() {
+        user_on_login_page();
+    }
+
+    @And("the user has a valid username \"(^)+)\"")
+    public void set_username(String user) {
+        this.username = user;
+    }
+
+    @And("the user has an invalid username \"(~+)\"")
+    public void set_invalid_username(String user) {
+        this.username = user;
+    }
+
+    @And("the user has a valid password \"(^)+)\"")
+    public void set_password(String pass) {
+        this.password = pass;
+    }
+
+    @And("the user has an invalid password \"(~+)\"")
+    public void set_invalid_password(String pass) {
+        this.password = pass;
+    }
+
+    @When("the user clicks on the Login button")
+    public void click_login() {
+        loginPage.login(username, password);
+    }
+
+
+    @Then("the user should be redirected to the Dashboard page \"(~+)\"")
+    public void redirected_to_dashboard(String path) {
+        Assertions.assertThat(dashboardPage.getPath()).isEqualTo(path);
+    }
+
+    @Then("the user should see an error message \"(~+)\"")
+    public void see_error(msg) {
+        Assertions.assertThat(loginPage.getAlertText()).contains(msg);
+    }
 }

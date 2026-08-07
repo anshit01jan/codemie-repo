@@ -1,6 +1,7 @@
 package stepDefinitions;
 
 import framework.drivers.DriverManager;
+import framework.pages.DashboardPage;
 import framework.pages.LoginPage;
 import framework.utils.Config;
 import io.cucumber.java.en.And;
@@ -17,14 +18,16 @@ public class LoginStepDefinitions {
     private WebDriver driver;
     private WebDriverWait wait;
     private LoginPage loginPage;
+    private DashboardPage dashboardPage;
 
     private void initPages() {
         driver = DriverManager.getDriver();
         if (driver == null) {
             throw new IllegalStateException("WebDriver is null. Check hooks/driver init.");
         }
-        wait = new WebDriverWait(driver, Duration.ofSeconds(Config.getTimeoutSeconds()));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(Config.getTimeoutSeconds())));
         loginPage = new LoginPage(driver, wait);
+        dashboardPage = new DashboardPage(driver, wait);
     }
 
     @Given("the user is on the Login page")

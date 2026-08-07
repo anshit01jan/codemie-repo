@@ -49,6 +49,11 @@ public class LoginStepDefinitions {
         this.password = pass;
     }
 
+    @When("the user clicks on the Login button")
+    public void the_user_clicks_on the_login_button(() {
+        loginPage.login(username, password);
+    }
+
     @Then("the user should see an error message {string}")
     public void user_sees_error(String msg) {
         Assertions.assertThat(loginPage.getAlertText()).contains(msg);

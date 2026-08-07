@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="WARN">
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d;[t-thread] %-5level %c - %m%n"/>
+    </Console>
+    <File name="File" filename="target/execution.log">
+      <PatternLayout pattern="%d;[-thread] %-5level %c - %m%n"/>
+    </File>
+  </Appenders>
+
+  <Loggers>
+    <Root level="info">
+      <AppenderRef>
+        <AppenderRef ref="Console"/>
+        <AppenderRef ref="File"/>
+      </AppenderRef>
+    </Root>
+  </Loggers>
+</configuration>

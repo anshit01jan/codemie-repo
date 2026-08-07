@@ -19,7 +19,7 @@ public class ForgotPasswordStepDefinitions {
     private void init() {
         driver = DriverManager.getDriver();
         if (driver == null) throw new IllegalStateException("WebDriver is null. Check hooks.");
-        wait = new WebDriverWait(driver, Duration.ofSeconds(Config.getTimeoutSeconds())));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(Config.getTimeoutSeconds()));
         loginPage = new LoginPage(driver, wait);
     }
 
@@ -29,10 +29,15 @@ public class ForgotPasswordStepDefinitions {
         loginPage.clickForgotPassword();
     }
 
-
     @Then("the Forgot Password modal should be displayed")
     public void fp_modal_visible() {
         init();
         Assertions.assertThat(loginPage.isForgotPasswordModalVisible()).isTrue();
+    }
+
+    @Then("the Forgot Password modal should be displayed with title {string}")
+    public void fp_modal_title(String title) {
+        init();
+        Assertions.assertThat(loginPage.getForgotPasswordTitle()).isEqualTo(title);
     }
 }

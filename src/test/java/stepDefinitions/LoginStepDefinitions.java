@@ -12,6 +12,7 @@ import org.assertj.core.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.net.URI;
 import java.time.Duration;
 
 public class LoginStepDefinitions {
@@ -44,8 +45,18 @@ public class LoginStepDefinitions {
         this.username = user;
     }
 
+    @And("the user has an invalid username {string}")
+    public void the_user_has_an_invalid_username(String user) {
+        this.username = user;
+    }
+
     @And("the user has a valid password {string}")
     public void the_user_has_a_valid_password(String pass) {
+        this.password = pass;
+    }
+
+    @And("the user has an invalid password {string}")
+    public void the_user_has_an_invalid_password(String pass) {
         this.password = pass;
     }
 
@@ -59,6 +70,10 @@ public class LoginStepDefinitions {
         Assertions.assertThat(dashboardPage.getPath()).isEqualTo(path);
     }
 
+    @Then("the user should not be redirected to the Dashboard page")
+    public void the_user_should_not_be_redirected_to_the_dashboard_page() {
+        Assertions.assertThat(URI.create(driver.getCurrentUrl()).getPath()).isNOtEqualTo("/dashboard");
+    }
 
     @Then("the user should see an error message {string}")
     public void user_sees_error(String msg) {

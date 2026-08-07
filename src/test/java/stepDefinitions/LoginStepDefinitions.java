@@ -65,6 +65,31 @@ public class LoginStepDefinitions {
         loginPage.login(username, password);
     }
 
+    @When("the user attempts to login 3 times with an invalid password {string}")
+    public void the_user_attempts_to_login_3_times(String pass) {
+        for (int i = 0; i < 3; i++) {
+            loginPage.login("scrum50", pass);
+        }
+    }
+
+    @Given("the user account {string} is locked due to 3 failed login attempts")
+    public void the_user_account_locked(String user) {
+        user_on_login();
+        for (int i = 0; i < 3; i++) {
+            loginPage.login(user, "WrongPass1");
+        }
+    }
+
+    @When("the user waits for {int} seconds")
+    public void the_user_waits_for_seconds(int seconds) throws InterruptedException {
+        Thread.sleep(seconds * 1000L);
+    }
+
+    @And("the user logs in with valid password {string}")
+    public void the_user_logs_in_with_valid_password(String pass) {
+        loginPage.login("scrum50", pass);
+    }
+
     @Then("the user should be redirected to the Dashboard page {string}")
     public void the_user_should_be_redirected_to_the_dashboard_page(String path) {
         Assertions.assertThat(dashboardPage.getPath()).isEqualTo(path);
@@ -78,5 +103,10 @@ public class LoginStepDefinitions {
     @Then("the user should see an error message {string}")
     public void user_sees_error(String msg) {
         Assertions.assertThat(loginPage.getAlertText()).contains(msg);
+    }
+
+    @Then("the user should see an error message containing {string}")
+    public void the_user_should_see_error_containing(String part) {
+        Assertions.assertThat(loginPage.getAlertText()).contains(part);
     }
 }

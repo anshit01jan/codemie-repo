@@ -52,4 +52,10 @@ public class ForgotPasswordStepDefinitions {
         init();
         loginPage.clickSendResetLink();
     }
+
+    @Then("the user should see a success message {string}")
+    public void see_success_message(String msg) {
+        init();
+        Assertions.assertThat(loginPage.getForgotPasswordAlertText()).contains(msg);
+    }
 }

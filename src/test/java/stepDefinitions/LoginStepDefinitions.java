@@ -50,11 +50,15 @@ public class LoginStepDefinitions {
         Assertions.assertThat(loginPage.isForgotPasswordModalVisible()).isTrue();
     }
 
+    @Then("the Forgot Password modal should be displayed with title {string}")
+    public void the_fp_modal_title(String title) {
+        Assertions.assertThat(loginPage.getForgotPasswordTitle()).isEqualTo(title);
+    }
+
     @And("the user has a valid username {string}")
     public void the_user_has_a_valid_username(String user) {
         this.username = user;
     }
-
 
     @And("the user has an invalid username {string}")
     public void the_user_has_an_invalid_username(String user) {
@@ -66,10 +70,12 @@ public class LoginStepDefinitions {
         this.password = pass;
     }
 
+
     @And("the user has an invalid password {string}")
     public void the_user_has_an_invalid_password(String pass) {
         this.password = pass;
     }
+
 
     @When("the user clicks on the Login button")
     public void the_user_clicks_on_the_login_button() {

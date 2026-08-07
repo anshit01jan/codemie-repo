@@ -3,8 +3,10 @@ package stepDefinitions;
 import framework.drivers.DriverManager;
 import framework.pages.LoginPage;
 import framework.utils.Config;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.assertj.core.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -21,7 +23,7 @@ public class LoginStepDefinitions {
         if (driver == null) {
             throw new IllegalStateException("WebDriver is null. Check hooks/driver init.");
         }
-        wait = new WebDriverWait(driver, Duration.ofSeconds(Config.getTimeoutSeconds())));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(Config.getTimeoutSeconds()));
         loginPage = new LoginPage(driver, wait);
     }
 

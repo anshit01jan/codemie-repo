@@ -15,7 +15,7 @@ public class LoginPage extends BasePage {
     private final By passwordInput = By.id("password");
     private final By loginBtn = By.cssSelector("button[type='submit']");
     private final By alertContainer = By.id("alertContainer");
-    private final By forgotPasswordLink = By.containingText("Forgot Password?");
+    private final By forgotPasswordLink = By.partialLinkText("Forgot Password");
 
     // Forgot password modal
     private final By forgotPasswordModal = By.id("forgotPasswordModal");

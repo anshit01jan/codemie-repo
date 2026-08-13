@@ -2,7 +2,7 @@ package framework.drivers;
 
 import framework.utils.Config;
 import framework.utils.Logger;
-import io.bonigarcia.wdm.WebDriverManager;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -26,7 +26,7 @@ public final class DriverFactory {
             case "firefox" -> {
                 WebDriverManager.firefoxdriver().setup();
                 FirefoxOptions ffox = new FirefoxOptions();
-                if (Config.isHeadless()) ffox.addArgument("--headless");
+                if (Config.isHeadless()) ffox.addArguments("--headless");
                 driver = new FirefoxDriver(ffox);
             }
             case "edge" -> {
@@ -36,8 +36,8 @@ public final class DriverFactory {
             case "chrome" -> {
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions options = new ChromeOptions();
-                if (Config.isHeadless()) options.addArgument("--headless=new");
-                options.addArgument("--remote-allow-origins=*");
+                if (Config.isHeadless()) options.addArguments("--headless=new");
+                options.addArguments("--remote-allow-origins=*");
                 driver = new ChromeDriver(options);
             }
             default -> {

@@ -16,7 +16,7 @@
     <cucumber.version>7.18.0</cucumber.version>
     <testng.version>7.9.0</testng.version>
     <apound-poi.version>5.2.5</apound-poi.version>
-    <extent.version>5.1.1</extent.version>
+    <extent.version>5.0.9</extent.version>
     <webdrivermanager.version>5.8.0</webdrivermanager.version>
     <log4j.version>2.23.1</log4j.version>
   </properties>
@@ -64,7 +64,7 @@
 
     <!-- Extent Reports -->
     <dependency>
-      <groupId>com.aventstack.extentreports</groupId>
+      <groupId>com.aventstack</groupId>
       <artifactId>extentreports</artifactId>
       <version>${extent.version}</version>
     </dependency>
@@ -83,15 +83,15 @@
 
     <!-- WebDriverManager for driver binaries -->
     <dependency>
-      <groupId>io.bonigarcia</groupId>
+      <groupId>io.github.bonigarcia</groupId>
       <artifactId>webdrivermanager</artifactId>
       <version>${webdrivermanager.version}</version>
     </dependency>
 
     <!-- Assortions -->
     <dependency>
-      <groupId>org.assertjl</groupId>
-      <artifactId>assertj.core</artifactId>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
       <version>3.26.3</version>
       <scope>test</scope>
     </dependency>

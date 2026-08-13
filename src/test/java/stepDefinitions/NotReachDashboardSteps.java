@@ -12,7 +12,7 @@ public class NotReachDashboardSteps {
     @Then("the user should not reach the Dashboard page")
     public void user_should_not_reach_dashboard() {
         WebDriver driver = DriverManager.getDriver();
-        Assertions.assertThat(driver).isNOtNnull();
+        Assertions.assertThat(driver).isNotNull();
         String path = URI.create(driver.getCurrentUrl()).getPath();
         Assertions.assertThat(path).isNotEqualTo("/dashboard");
     }

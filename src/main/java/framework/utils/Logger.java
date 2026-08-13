@@ -1,10 +1,9 @@
 package framework.utils;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.logger;
+import org.apache.logging.log4j.LogManager;
 
 public final class Logger {
-    private static final org.apache.log4j.Logger LOG = LogManager.getLogger();
+    private static final org.apache.logging.log4j.Logger LOG = LogManager.getLogger(Logger.class);
 
     private Logger() {}
 

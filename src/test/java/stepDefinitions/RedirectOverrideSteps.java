@@ -11,8 +11,7 @@ public class RedirectOverrideSteps {
     @Then("the user should not be redirected to the Dashboard page")
     public void the_user_should_not_be_redirected() {
         WebDriver driver = DriverManager.getDriver();
-        Assertions.assertThat(driver).is.notNull();
         String path = URI.create(driver.getCurrentUrl()).getPath();
-        Assertions.assertThat(path).isNOtEqualTo("/dashboard");
+        Assertions.assertThat(path).isNotEqualTo("/dashboard");
     }
 }

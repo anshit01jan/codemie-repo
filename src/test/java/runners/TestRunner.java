@@ -7,19 +7,19 @@ import org.testng.annotations.DataProvider;
 @CucumberOptions(
     features = "src/test/resources/features",
     glue = {"hooks", "stepDefinitions"},
-    plugins = {
+    plugin = {
     "pretty",
     "html:target/cucumber.html",
     "json:target/cucumber.json",
     "hooks.ExtentCucumberPlugin"
-}
+},
     monochrome = true
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
 
     @DataProvider(parallel = true)
     @Override
-    public Object[] scenarios() {
+    public Object[][] scenarios() {
         return super.scenarios();
     }
 }

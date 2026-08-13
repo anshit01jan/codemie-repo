@@ -1,7 +1,7 @@
 package framework.reports;
 
 import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.reporters.ExtentSparkReporter;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import framework.utils.Config;
 import framework.utils.Logger;
 
@@ -20,8 +20,8 @@ public final class ExtentManager {
     private static void init() {
         try {
             ExtentSparkReporter spark = new ExtentSparkReporter(Config.getExtentReportPath());
-            spark.configure().setDocTitle("CodeMie Automation Report");
-            spark.configure().setReportName("UI Automation");
+            spark.config().setDocumentTitle("CodeMie Automation Report");
+            spark.config().setReportName("UI Automation");
 
             extentReports = new ExtentReports();
             extentReports.attachReporter(spark);

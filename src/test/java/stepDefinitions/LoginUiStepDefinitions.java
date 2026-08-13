@@ -30,7 +30,7 @@ public class LoginUiStepDefinitions {
         loginPage.open();
     }
 
-    @Then("the user should see an input field "{string}")
+    @Then("the user should see an input field {string}")
     public void user_sees_input_field(String label) {
         if ("Email Address".equalsIgnoreCase(label)) {
             Assertions.assertThat(driver.findElement(org.openqa.selenium.By.cssSelector("#forgotPasswordModal input[type='email']")).isDisplayed()).isTrue();
@@ -43,7 +43,7 @@ public class LoginUiStepDefinitions {
         }
     }
 
-    @And("the user should see a button "{string}")
+    @And("the user should see a button {string}")
     public void user_sees_button(String name) {
         if ("Login".equalsIgnoreCase(name)) {
             Assertions.assertThat(driver.findElement(org.openqa.selenium.By.cssSelector("button[type='submit']")).isDisplayed()).isTrue();
@@ -54,7 +54,7 @@ public class LoginUiStepDefinitions {
         }
     }
 
-    @And("the user should see a link "{string}")
+    @And("the user should see a link {string}")
     public void user_sees_link(String text) {
         Assertions.assertThat(driver.getPageSource()).contains(text);
     }

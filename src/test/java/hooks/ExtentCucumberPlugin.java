@@ -6,8 +6,6 @@ import framework.reports.ExtentTestManager;
 import io.cucumber.plugin.ConcurrentEventListener;
 import io.cucumber.plugin.event.*;
 
-import java.util.UUID;
-
 public class ExtentCucumberPlugin implements ConcurrentEventListener {
 
     @Override
@@ -22,7 +20,7 @@ public class ExtentCucumberPlugin implements ConcurrentEventListener {
         ExtentTest test = ExtentManager.getExtentReports().createTest(scenarioName);
 
         // Tags as categories
-        event.getTestCase().getTags().forEach(tag -> test.assignCategory(tag.getName()));
+        event.getTestCase().getTags().forEach(tag -> test.assignCategory(tag));
 
         ExtentTestManager.setTest(test);
     }

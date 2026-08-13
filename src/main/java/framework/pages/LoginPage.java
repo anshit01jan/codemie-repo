@@ -2,7 +2,6 @@ package framework.pages;
 
 import framework.base.BasePage;
 import framework.utils.environment.Env;
-import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

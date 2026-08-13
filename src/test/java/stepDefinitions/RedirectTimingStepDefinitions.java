@@ -4,7 +4,6 @@ import framework.drivers.DriverManager;
 import framework.pages.DashboardPage;
 import framework.pages.LoginPage;
 import framework.utils.Config;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.assertj.core.api.Assertions;

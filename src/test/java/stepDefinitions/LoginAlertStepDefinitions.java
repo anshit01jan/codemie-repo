@@ -25,6 +25,10 @@ public class LoginAlertStepDefinitions {
     @Then("the user should see an error alert displayed in the alert container")
     public void see_error_alert() {
         init();
+        try {
+            wait.until(d -> loginPage.isAlertVisible());
+        } catch (Exception ignored) {
+        }
         Assertions.assertThat(loginPage.isAlertVisible()).isTrue();
     }
 

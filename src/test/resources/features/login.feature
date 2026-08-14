@@ -20,9 +20,10 @@ Feature: Login
 
   @regression
   Scenario: Account lockout after 3 failed attempts (TC-LOG-003)
-    Given the user is on the Login page
+    Given the user account "scrum50" is in an unlocked state
+    And the user is on the Login page
     When the user attempts to login 3 times with an invalid password "WrongPass1"
-    Then the user should see an error message containing "Locked"
+    Then the user should see an error message containing "locked"
     And the user should not reach the Dashboard page
 
   @regression

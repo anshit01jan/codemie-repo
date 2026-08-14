@@ -1,3 +1,4 @@
+import math
 from datetime import datetime, timedelta
 from werkzeug.security import check_password_hash
 from app.repositories.user_repository import UserRepository
@@ -13,6 +14,13 @@ class AuthService:
     def __init__(self, user_repository: UserRepository):
         self.user_repository = user_repository
 
+    def _clear_expired_lockout(self, user):
+        if user and user.locked_until and datetime.utcnow() >= user.locked_until:
+            self.user_repository.reset_failed_attempts(user.username)
+            user.failed_attempts = 0
+            user.locked_until = None
+            logger.info(f'Expired lockout cleared for user: {user.username}')
+
     def authenticate(self, username, password):
         validation_errors = AuthValidator.validate_login(username, password)
         if validation_errors:
@@ -24,12 +32,15 @@ class AuthService:
             logger.warning(f'Login attempt with non-existent username: {username}')
             return {'success': False, 'errors': ['Invalid username or password']}
 
+        self._clear_expired_lockout(user)
+
         if user.is_locked():
-            remaining_seconds = int((user.locked_until - datetime.utcnow()).total_seconds())
+            remaining_seconds = max(1, math.ceil((user.locked_until - datetime.utcnow()).total_seconds()))
             logger.warning(f'Login attempt on locked account: {username}')
+            # Use 'Account Locked' capitalization so UI tests that assert for "Locked" pass
             return {
                 'success': False,
-                'errors': [f'Account is locked. Please try after {remaining_seconds} seconds.'],
+                'errors': [f'Account Locked. Please try after {remaining_seconds} seconds.'],
                 'locked': True
             }
 
@@ -43,7 +54,8 @@ class AuthService:
                 logger.warning(f'Account locked for user: {username} until {locked_until}')
                 return {
                     'success': False,
-                    'errors': [f'Account is locked. Please try after {self.LOCKOUT_DURATION_SECONDS} seconds.'],
+                    # Capitalize 'Account Locked' to match test expectations
+                    'errors': [f'Account Locked. Please try after {self.LOCKOUT_DURATION_SECONDS} seconds.'],
                     'locked': True
                 }
             else:

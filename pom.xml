@@ -88,6 +88,14 @@
       <version>${webdrivermanager.version}</version>
     </dependency>
 
+    <!-- Lombok - Java 17 compatible version -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.38</version>
+      <scope>provided</scope>
+    </dependency>
+
     <!-- Assortions -->
     <dependency>
       <groupId>org.assertj</groupId>
@@ -114,9 +122,9 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.2.5</version>
         <configuration>
-          <suiteXMlFiles>
-            <suiteXMlFile>testng.xml</suiteXMlFile>
-          </suiteXMlFiles>
+          <suiteXmlFiles>
+            <suiteXmlFile>testng.xml</suiteXmlFile>
+          </suiteXmlFiles>
           <systemProperties>
             <property>
               <name>cucumber.publish.quiet</name>

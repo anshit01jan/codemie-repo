@@ -8,13 +8,21 @@ import framework.utils.Config;
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 
+/**
+ * NOTE:
+ * This class previously duplicated step definitions already implemented in
+ * {@link stepDefinitions.LoginStepDefinitions}.
+ * To prevent Cucumber DuplicateStepDefinitionException, the step patterns were removed.
+ */
 public class LoginSteps {
 
     private WebDriver driver;
     private WebDriverWait wait;
     private LoginPage loginPage;
+
     private void initPages() {
         if (DriverManager.getDriver() == null) {
             throw new IllegalStateException("WebDriver is null. Check hooks/driver initialization.");
@@ -25,16 +33,9 @@ public class LoginSteps {
         new DashboardPage(driver, wait);
     }
 
-    // --- Login flow ---
-
-    @Given("the user is on the Login page")
-    public void user_on_login_page() {
+    // Helper method kept for potential reuse from other step classes (no annotations).
+    public void openLoginPage() {
         initPages();
         loginPage.open();
-    }
-
-    @Given("the user navigates to the Login page")
-    public void user_navigates_to_login() {
-        user_on_login_page();
     }
 }

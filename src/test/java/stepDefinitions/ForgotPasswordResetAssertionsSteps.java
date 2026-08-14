@@ -4,12 +4,16 @@ import framework.drivers.DriverManager;
 import framework.pages.LoginPage;
 import framework.utils.Config;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.assertj.core.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+/**
+ * Assertions-only steps for reset behavior. (Click steps removed to avoid ambiguity.)
+ */
 public class ForgotPasswordResetAssertionsSteps {
     private WebDriver driver;
     private WebDriverWait wait;
@@ -28,10 +32,11 @@ public class ForgotPasswordResetAssertionsSteps {
         Assertions.assertThat(loginPage.getForgotPasswordEmailValue()).isEmpty();
     }
 
-
     @Then("the Forgot Password alert container should be empty")
     public void the_fp_alert_container_should_be_empty() {
         init();
         Assertions.assertThat(loginPage.isForgotPasswordAlertEmpty()).isTrue();
     }
+
+    // Generic click steps removed to avoid ambiguous step definition matches.
 }

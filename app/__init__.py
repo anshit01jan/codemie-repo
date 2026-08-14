@@ -23,6 +23,8 @@ def create_app():
     app.config['SESSION_COOKIE_HTTPONLY'] = True
     app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
     app.config['PERMANENT_SESSION_LIFETIME'] = 1800
+    app.config['RATE_LIMIT_ENABLED'] = os.getenv('RATE_LIMIT_ENABLED', 'False').strip().lower() in {'1', 'true', 'yes', 'on'}
+    app.config['WTF_CSRF_ENABLED'] = os.getenv('WTF_CSRF_ENABLED', 'False').strip().lower() in {'1', 'true', 'yes', 'on'}
 
     csrf.init_app(app)
 

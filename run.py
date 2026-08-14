@@ -10,10 +10,11 @@ if __name__ == '__main__':
 
     port = int(os.getenv('PORT', 5000))
     debug = os.getenv('DEBUG', 'False').lower() == 'true'
+    env = os.getenv('ENV', 'development')
 
     print('='*60)
     print(f'Starting Login Application')
-    print(f'Environment: {app.config["ENV"]}')
+    print(f'Environment: {env}')
     print(f'Running on: http://localhost:{port}')
     print(f'Debug mode: {debug}')
     print('='*60)

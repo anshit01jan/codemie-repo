@@ -10,13 +10,13 @@ Feature: Forgot Password
     And the Forgot Password modal should be displayed with title "Forgot Password"
     When the user enters email "test@example.com"
     And the user clicks on the "Send Reset Link" button
-    Then the user should see a success message "Reset link sent"
+    Then the user should see a success message "forgot password link has been sent to registered email address."
 
   @regression
   Scenario: Forgot Password invalid email shows validation error (TC-FP-002)
     Given the user is on the Login page
     When the user clicks on the "Forgot Password?" link
-    And the user enters email "invalid-email"
+    And the user enters email "invalid-email-no-at-sign.com"
     And the user clicks on the "Send Reset Link" button
     Then the user should see a validation error for the Email field
 

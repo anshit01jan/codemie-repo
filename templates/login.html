@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Secure Application</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+          crossorigin="anonymous">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-container {
+            max-width: 400px;
+            width: 100%;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px 15px 0 0 !important;
+            padding: 20px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3d8f 100%);
+        }
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        .alert {
+            border-radius: 10px;
+        }
+        .forgot-password-link {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .forgot-password-link:hover {
+            color: #5568d3;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-container mx-auto">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3 class="mb-0">Welcome Back</h3>
+                    <p class="mb-0 small">Please login to continue</p>
+                </div>
+                <div class="card-body p-4">
+                    <div id="alertContainer"></div>
+
+                    <form id="loginForm">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username"
+                                   placeholder="Enter your username" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password"
+                                   placeholder="Enter your password" required>
+                        </div>
+
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                        </div>
+
+                        <div class="text-center">
+                            <a href="#" class="forgot-password-link" data-bs-toggle="modal"
+                               data-bs-target="#forgotPasswordModal">Forgot Password?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="forgotPasswordAlertContainer"></div>
+                    <form id="forgotPasswordForm">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                   placeholder="Enter your registered email" required>
+                            <div class="form-text">We'll send a password reset link to this email.</div>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Send Reset Link</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+
+    <script>
+        function showAlert(message, type, containerId) {
+            const container = document.getElementById(containerId);
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+            alertDiv.role = 'alert';
+            alertDiv.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+            container.innerHTML = '';
+            container.appendChild(alertDiv);
+
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 10000);
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const csrfToken = document.querySelector('input[name="csrf_token"]').value;
+
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showAlert(data.message || 'Login successful! Redirecting...', 'success', 'alertContainer');
+                    setTimeout(() => {
+                        window.location.href = '/dashboard';
+                    }, 1000);
+                } else {
+                    const errorMessage = data.errors ? data.errors.join('<br>') : 'Login failed';
+                    showAlert(errorMessage, 'danger', 'alertContainer');
+                }
+            } catch (error) {
+                showAlert('An error occurred. Please try again.', 'danger', 'alertContainer');
+            }
+        });
+
+        document.getElementById('forgotPasswordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const csrfToken = document.querySelector('#forgotPasswordForm input[name="csrf_token"]').value;
+
+            try {
+                const response = await fetch('/api/forgot-password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showAlert(data.message, 'success', 'forgotPasswordAlertContainer');
+                    setTimeout(() => {
+                        document.getElementById('forgotPasswordForm').reset();
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal'));
+                        modal.hide();
+                    }, 2000);
+                } else {
+                    const errorMessage = data.errors ? data.errors.join('<br>') : 'Request failed';
+                    showAlert(errorMessage, 'danger', 'forgotPasswordAlertContainer');
+                }
+            } catch (error) {
+                showAlert('An error occurred. Please try again.', 'danger', 'forgotPasswordAlertContainer');
+            }
+        });
+
+        document.getElementById('forgotPasswordModal').addEventListener('hidden.bs.modal', () => {
+            document.getElementById('forgotPasswordAlertContainer').innerHTML = '';
+            document.getElementById('forgotPasswordForm').reset();
+        });
+    </script>
+</body>
+</html>
